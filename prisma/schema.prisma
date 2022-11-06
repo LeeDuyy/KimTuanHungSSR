@@ -1,0 +1,253 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlserver"
+    url      = env("DATABASE_URL")
+}
+
+model bill_detail {
+    id         Int     @id(map: "PK__bill_det__3213E83F4D2A90B9") @default(autoincrement())
+    amount     Float?
+    discount   Float?
+    model_code String? @db.VarChar(255)
+    note       String? @db.VarChar(255)
+    price      Float?
+    quantity   Int?
+    bill_id    Int?
+    model_id   Int?
+}
+
+model bills {
+    bill_id          Int     @id(map: "PK__bills__D706DDB3EC183CA1") @default(autoincrement())
+    bill_code        String? @db.VarChar(255)
+    customer_address String? @db.VarChar(255)
+    customer_email   String? @db.VarChar(255)
+    customer_name    String? @db.VarChar(255)
+    customer_phone   String? @db.VarChar(255)
+    note             String? @db.VarChar(255)
+    status           Int?
+    total_amount     Float?
+    user_id          Int?
+    created_date     BigInt?
+    creator          String? @db.NVarChar(1)
+    email            String? @db.NVarChar(150)
+}
+
+model branch {
+    id           Int     @id(map: "PK_log_stored") @default(autoincrement())
+    branch_name  String? @db.NVarChar(500)
+    address      String?
+    phone_number String? @db.NVarChar(150)
+    hotline      String? @db.NVarChar(150)
+}
+
+model categories {
+    category_id          Int       @id(map: "PK__categori__D54EE9B44DF03D41") @default(autoincrement())
+    active               Boolean   @default(true, map: "DF_categories_active")
+    category_code        String    @db.VarChar(20)
+    category_name        String    @db.NVarChar(255)
+    parent_id            Int       @default(0, map: "DF_categories_category_parent")
+    slug                 String?   @db.VarChar(150)
+    image                String?   @db.VarChar(1000)
+    order_index          Int       @default(1, map: "DF_categories_order_index")
+    is_popular           Boolean   @default(false, map: "DF_categories_is_popular")
+    created_user         Int
+    created_date         DateTime  @db.DateTime
+    updated_user         Int?
+    updated_date         DateTime? @db.DateTime
+    updated_date_popular DateTime? @db.DateTime
+}
+
+model comments {
+    comment_id      String   @id(map: "PK_comments") @default("newid()", map: "DF_comments_comment_id") @db.Char(36)
+    rating_star     Int      @default(5, map: "DF_comments_rating_star")
+    contact_name    String   @db.NVarChar(150)
+    contact_phone   String?  @db.NVarChar(150)
+    contact_email   String?  @db.NVarChar(150)
+    active          Boolean  @default(true, map: "DF_comments_active")
+    created_date    DateTime @default(now(), map: "DF_comments_created_date") @db.DateTime
+    product_id      Int?
+    post_id         Int?
+    is_hide_contact Boolean  @default(false, map: "DF_comments_is_hide_contact")
+}
+
+model config {
+    company_name String? @db.NVarChar(500)
+    short_name   String? @db.NVarChar(150)
+    tax_code     String? @db.NVarChar(50)
+    tax_address  String?
+    phone_number String? @db.NVarChar(50)
+    hotline      String? @db.NVarChar(50)
+    email        String? @db.NVarChar(150)
+    facebook     String?
+    zalo         String? @db.NVarChar(150)
+    youtube      String?
+    instagram    String?
+    clock        String? @db.NVarChar(500)
+    logo         String?
+    logo_small   String?
+    theme_color  String? @db.VarChar(50)
+    id           Int     @id @default(autoincrement())
+}
+
+model menus {
+    menu_id      Int       @id(map: "PK_menus") @default(autoincrement())
+    title        String    @db.NVarChar(150)
+    slug         String?   @db.VarChar(150)
+    parent_id    Int       @default(0, map: "DF_menus_parent_id")
+    page_id      Int?
+    active       Boolean   @default(true, map: "DF_menus_active")
+    top_bar      Boolean
+    main         Boolean
+    footer       Boolean
+    mobile       Boolean
+    is_blog      Boolean   @default(false, map: "DF_menus_is_blog")
+    template_id  Int
+    order_index  Int       @default(-1, map: "DF_menus_order_index")
+    created_user Int
+    created_date DateTime  @default(now(), map: "DF_menus_created_date") @db.DateTime
+    updated_user Int       @default(-1, map: "DF_menus_updated_user")
+    updated_date DateTime? @db.DateTime
+}
+
+model pages {
+    page_id          Int       @id(map: "PK_pages") @default(autoincrement())
+    title            String    @db.NVarChar(Max)
+    descriptions     String    @db.NVarChar(Max)
+    thumbnail        String?   @db.VarChar(1000)
+    background_image String?   @db.VarChar(1000)
+    created_user     Int
+    created_date     DateTime  @default(now(), map: "DF_pages_created_date") @db.DateTime
+    updated_user     Int?
+    updated_date     DateTime? @db.DateTime
+}
+
+model posts {
+    post_id                 Int       @id(map: "PK_posts") @default(autoincrement())
+    menu_id                 Int
+    title                   String    @db.NVarChar(Max)
+    title_char              String?   @db.VarChar(1000)
+    slug                    String    @db.VarChar(1000)
+    short_descriptions      String?   @db.NVarChar(Max)
+    descriptions            String?   @db.NVarChar(Max)
+    active                  Boolean   @default(false, map: "DF_posts_status")
+    active_date             DateTime? @db.DateTime
+    thumbnail               String?   @db.VarChar(4000)
+    created_user            Int
+    created_date            DateTime  @default(now(), map: "DF_posts_created_date") @db.DateTime
+    updated_user            Int       @default(-1, map: "DF_posts_updated_user")
+    updated_date            DateTime? @db.DateTime
+    short_descriptions_char String?   @db.VarChar(Max)
+}
+
+model product_images {
+    id         Int     @id(map: "PK__product___3213E83F6E6DA084") @default(autoincrement())
+    image_name String  @db.VarChar(Max)
+    model_id   Int
+    thumbnail  String? @db.VarChar(255)
+}
+
+model product_models {
+    model_id        Int     @id(map: "PK__product___DC39CAF4342658F5") @default(autoincrement())
+    product_id      Int
+    sku             String? @db.VarChar(20)
+    discount        Decimal @default(0, map: "DF_product_models_discount") @db.Decimal(18, 2)
+    price           Decimal @default(0, map: "DF_product_models_price") @db.Decimal(18, 4)
+    stock           Decimal @default(0, map: "DF_product_models_stock") @db.Decimal(18, 4)
+    stock_status_id Int     @default(1, map: "DF_product_models_stock_status_id")
+    stock_status    String? @db.NVarChar(150)
+    unit            String? @db.VarChar(255)
+    active          Boolean @default(true, map: "DF_product_models_active")
+}
+
+model product_specifications {
+    id         Int     @id(map: "PK__product___3213E83F93B718EB") @default(autoincrement())
+    product_id Int
+    group_name String? @db.NVarChar(255)
+    attribute  String  @db.NVarChar(255)
+    value      String? @db.NVarChar(255)
+}
+
+model product_variations {
+    id        Int     @id(map: "PK__product___3213E83FB127406D") @default(autoincrement())
+    attribute String? @db.VarChar(255)
+    value     String? @db.VarChar(255)
+    model_id  Int?
+}
+
+model products {
+    product_id              Int       @id(map: "PK__products__47027DF5D705915C") @default(autoincrement())
+    category_id             Int
+    product_code            String    @db.VarChar(50)
+    product_name            String
+    active                  Boolean
+    brand                   String?   @db.NVarChar(500)
+    short_descriptions      String?   @db.NVarChar(Max)
+    descriptions            String?   @db.NVarChar(Max)
+    slug                    String?   @db.VarChar(Max)
+    one_star                Int       @default(0, map: "DF_products_one_star")
+    two_star                Int       @default(0, map: "DF_products_two_star")
+    three_star              Int       @default(0, map: "DF_products_three_star")
+    four_star               Int       @default(0, map: "DF_products_four_start")
+    five_star               Int       @default(0, map: "DF_products_five_start")
+    is_hot                  Boolean   @default(false, map: "DF_products_is_hot")
+    is_new                  Boolean   @default(false, map: "DF_products_is_new")
+    is_saleoff              Boolean   @default(false, map: "DF_products_is_saleof")
+    rating_star             Decimal?  @db.Decimal(18, 2)
+    total_rated             Int?
+    created_user            Int       @default(1, map: "DF_products_created_user")
+    created_date            DateTime? @default(now(), map: "DF_products_created_date") @db.DateTime
+    updated_user            Int?
+    updated_date            DateTime? @db.DateTime
+    product_code_char       String?   @db.VarChar(50)
+    product_name_char       String?   @db.VarChar(1000)
+    thumbnail               String?   @db.VarChar(Max)
+    updated_date_hot        DateTime? @db.DateTime
+    updated_date_new        DateTime? @db.DateTime
+    updated_date_saleoff    DateTime? @db.DateTime
+    is_bestsellers          Boolean   @default(false, map: "DF_products_is_bestsellers")
+    updated_date_bestsell   DateTime? @db.DateTime
+    short_descriptions_CHAR String?   @db.VarChar(Max)
+}
+
+model slides {
+    slide_id      Int       @id(map: "PK_slides") @default(autoincrement())
+    title         String?   @db.NVarChar(500)
+    descriptions  String?   @db.NVarChar(Max)
+    image_classic String?   @db.VarChar(Max)
+    image_full    String?   @db.VarChar(Max)
+    image_mobile  String?   @db.VarChar(Max)
+    slug          String?   @db.VarChar(Max)
+    action_label  String?   @db.NVarChar(150)
+    active        Boolean   @default(true, map: "DF_slides_active")
+    created_user  Int
+    created_date  DateTime  @default(now(), map: "DF_slides_created_date") @db.DateTime
+    updated_user  Int?
+    updated_date  DateTime? @db.DateTime
+    is_main       Boolean   @default(false, map: "DF_slides_is_main")
+    is_body       Boolean   @default(false, map: "DF_slides_is_body")
+    is_partner    Boolean   @default(false, map: "DF_slides_is_partner")
+    slide_name    String?   @db.NVarChar(500)
+}
+
+model tags {
+    id         Int    @id(map: "PK__product___3213E83F8EAD6FA6") @default(autoincrement())
+    tag_name   String @db.NVarChar(255)
+    product_id Int?
+    post_id    Int?
+}
+
+model users {
+    user_id      Int      @id(map: "PK__users__B9BE370F23EF8D39") @default(autoincrement())
+    active       Boolean?
+    avatar       String?  @db.VarChar(255)
+    email        String?  @db.VarChar(255)
+    full_name    String?  @db.VarChar(255)
+    gender       Int?
+    password     String?  @db.VarChar(255)
+    phone_number String?  @db.VarChar(255)
+    role         Int?
+    username     String?  @db.VarChar(255)
+}

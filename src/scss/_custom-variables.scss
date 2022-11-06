@@ -1,0 +1,16 @@
+// -------------------------
+// --- You can add your variables to overwrite default values.
+// -------------------------
+
+// Uncomment one of the following line if you want to get appropriate theme.
+@import 'themes/red';
+//@import 'themes/blue';
+//@import 'themes/black';
+//@import 'themes/green';
+
+$light-divider-color: #ebebeb !default;
+$main-color:#cc3333 !default;
+$light-color: #fff !default;
+$footer-bg-cus: linear-gradient(0deg, rgba(204, 51, 51, 1) 0%, rgba(204, 51, 51, 0.8267682072829132) 86%) !default;
+$footer-border-top-cus: 1px solid $light-divider-color !default;
+$footer-copyright-border-cus: 1px solid $light-divider-color !default;

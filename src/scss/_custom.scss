@@ -1,0 +1,127 @@
+// -------------------------
+// --- You can add your custom CSS here and it will overwrite template styles.
+// -------------------------
+@import './custom-variables';
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $main-color;
+}
+
+/* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {}
+
+.post-card__read-more {
+    :hover {
+        background: $main-color;
+        color: $light-color;
+        border: none;
+    }
+}
+
+.zero-price {
+    color: $main-color;
+}
+
+.site-header__phone {
+    background-image: url("../assest/images/top-right.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 220px;
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    color: $light-color;
+    // margin-left: 5px !important;
+}
+
+.site-header__phone-title {
+    color: $light-color;
+    margin-left: 50px;
+}
+
+.site-header__phone-number {
+    margin-left: 50px;
+    margin-bottom: 7px;
+}
+
+.site-header-icon {
+    margin-left: 70px;
+    i {
+        font-size: 50px;
+        color: $main-color;
+    }
+}
+
+.site-footer {
+    background: $footer-bg-cus !important;
+    border-top: $footer-border-top-cus !important;
+    color: #ffffff !important;
+}
+
+.site-footer__bottom {
+    border-top: $footer-copyright-border-cus !important;
+}
+
+.footer-newsletter__form-button {
+    background-color: #ffffff;
+    color: $main-color;
+    border: none;
+}
+
+.totop__button {
+    border: 0.5px solid #ffffff;
+}
+
+.block-slideshow__slide-title {
+    color: $main-color;
+}
+
+.block-slideshow__slide-text {
+    color: #ffffff;
+}
+
+.post-card__image {
+    img {
+        height: 200px !important;
+        object-fit: contain;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.zalo-bubble-wrapper {
+    width: 65px;
+    height: 65px;
+    background-size: 65px;
+    background-image: url("../assest/images/logoZalo.png");
+    position: fixed;
+    bottom: 120px;
+    right: 22px;
+    cursor: pointer;
+    z-index: 999999;
+}
+
+.product-card__addtocart--list {
+    background-color: $main-color;
+    color: #ffffff;
+}
+
+.typography {
+    p {
+        margin-bottom: 1em !important;
+    }
+}
